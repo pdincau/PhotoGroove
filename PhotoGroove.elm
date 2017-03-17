@@ -14,7 +14,6 @@ initialModel =
 view model =
     div [ class "content" ]
         [ h1 [] [ text "Photo Groove" ]
-        -- add silly comment
         , div [ id "thumbnail" ] ( List.map viewThumbnail model )
         ]
 
