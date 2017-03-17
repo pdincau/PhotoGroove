@@ -22,5 +22,3 @@ viewThumbnail thumbnail =
 
 main =
     view initialModel
-
--- another comment
