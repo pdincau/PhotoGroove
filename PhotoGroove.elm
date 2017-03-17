@@ -1,7 +1,7 @@
-module PhotoGroove exposing (...)
+module PhotoGroove exposing (..)
 
-import Html exposing  (...)
-import Html.Attributes exposing (...)
+import Html exposing  (..)
+import Html.Attributes exposing (..)
 
 urlPrefix = "http://elm-in-action.com/"
 
