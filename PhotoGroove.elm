@@ -1,6 +1,7 @@
 module PhotoGroove exposing (..)
 
 import Html exposing  (..)
+import Html.Events exposing (onClick)
 import Html.Attributes exposing (..)
 
 urlPrefix = "http://elm-in-action.com/"
