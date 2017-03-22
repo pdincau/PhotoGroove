@@ -3,11 +3,24 @@ module PhotoGroove exposing (..)
 import Html exposing  (..)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (..)
+import Array exposing(..)
 
 urlPrefix : String
 urlPrefix = "http://elm-in-action.com/"
 
-initialModel : { photos : List { url : String }, selectedUrl : String }
+type alias Photo =
+    { url : String }
+
+type alias Model =
+    { photos : List Photo
+    , selectedUrl : String
+    }
+
+type alias Msg =
+    { operation : String, data : String
+    }
+
+initialModel : Model
 initialModel =
     { photos =
         [ { url = "1.jpeg" }
@@ -17,9 +30,16 @@ initialModel =
     , selectedUrl = "1.jpeg"
     }
 
+photoArray : Array Photo
+photoArray = Array.fromList initialModel.photos
+
+view : Model -> Html Msg
 view model =
     div [ class "content" ]
         [ h1 [] [ text "Photo Groove" ]
+        , button [
+            onClick { operation = "SURPRISE_ME", data = "" } ]
+            [ text "Surprise me!" ]
         , div [ id "thumbnail" ] ( List.map (viewThumbnail model.selectedUrl) model.photos )
         , img [
             class "large"
@@ -28,6 +48,7 @@ view model =
             []
         ]
 
+viewThumbnail : String -> Photo -> Html Msg
 viewThumbnail selectedUrl thumbnail =
     img [ src (urlPrefix ++ thumbnail.url)
     , classList [ ("selected", selectedUrl == thumbnail.url ) ]
@@ -35,11 +56,15 @@ viewThumbnail selectedUrl thumbnail =
     ]
     []
 
+update: Msg -> Model -> Model
 update msg model =
-    if msg.operation == "SELECT_PHOTO" then
-        { model | selectedUrl = msg.data }
-    else
-        model
+    case msg.operation of
+        "SELECT_PHOTO" ->
+            { model | selectedUrl = msg.data }
+        "SURPRISE_ME" ->
+            { model | selectedUrl = "2.jpeg" }
+        _ ->
+            model
 
 main =
     Html.beginnerProgram
