@@ -8,12 +8,18 @@ import Array exposing(..)
 urlPrefix : String
 urlPrefix = "http://elm-in-action.com/"
 
+type ThumbnailSize
+    = Small
+    | Medium
+    | Large
+
 type alias Photo =
     { url : String }
 
 type alias Model =
     { photos : List Photo
     , selectedUrl : String
+    , thumbnailSize : ThumbnailSize
     }
 
 type alias Msg =
@@ -28,6 +34,7 @@ initialModel =
         , { url = "3.jpeg" }
         ]
     , selectedUrl = "1.jpeg"
+    , thumbnailSize = Medium
     }
 
 photoArray : Array Photo
@@ -55,6 +62,23 @@ viewThumbnail selectedUrl thumbnail =
     , onClick { operation = "SELECT_PHOTO", data = thumbnail.url }
     ]
     []
+
+viewSizeChooser : ThumbnailSize -> Html Msg
+viewSizeChooser size =
+    label []
+        [ input [ type_ "radio", name "size" ] []
+        , text (sizeToString size)
+        ]
+
+sizeToString: ThumbnailSize -> String
+sizeToString size =
+    case size of
+        Small ->
+            "small"
+        Medium ->
+            "med"
+        Large ->
+            "large"
 
 update: Msg -> Model -> Model
 update msg model =
