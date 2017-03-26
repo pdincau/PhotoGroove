@@ -4,6 +4,7 @@ import Html exposing  (..)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (..)
 import Array exposing(..)
+import Random
 
 urlPrefix : String
 urlPrefix = "http://elm-in-action.com/"
@@ -40,6 +41,10 @@ initialModel =
 
 photoArray : Array Photo
 photoArray = Array.fromList initialModel.photos
+
+randomPhotoPicker : Random.Generator Int
+randomPhotoPicker =
+    Random.int 0 (Array.length photoArray - 1)
 
 view : Model -> Html Msg
 view model =
